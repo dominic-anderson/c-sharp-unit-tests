@@ -8,6 +8,8 @@ namespace BankAccountNS
     
     public class BankAccount
     {
+        public const string DebitAmountExceedsBalanceMessage = "Debit amount exceeds balance";
+        public const string DebitAmountLessThanZeroMessage = "Debit amount is less than zero";
         private readonly string m_customerName;
         private double m_balance;
 
@@ -33,12 +35,12 @@ namespace BankAccountNS
         {
             if (amount > m_balance)
             {
-                throw new ArgumentOutOfRangeException("Not enough money in your account!");
+                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountExceedsBalanceMessage);
             }
 
             if (amount < 0)
             {
-                throw new ArgumentOutOfRangeException("Can't pay a negative number!");
+                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
             }
 
             m_balance -= amount; // This is intentionally incorrect code for unit testing purposes
@@ -48,7 +50,7 @@ namespace BankAccountNS
         {
             if (amount < 0)
             {
-                throw new ArgumentOutOfRangeException("Can't pay a negative number!");
+                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
             }
 
             m_balance += amount;
