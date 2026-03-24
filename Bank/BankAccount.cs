@@ -41,7 +41,7 @@
                 throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
             }
 
-            m_balance -= amount;
+            m_balance = Math.Round(m_balance - amount, 2);
         }
 
         public void Credit(double amount)
@@ -51,7 +51,7 @@
                 throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
             }
 
-            m_balance += amount;
+            m_balance = Math.Round(m_balance + amount, 2);
         }
 
         public void Display()
