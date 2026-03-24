@@ -33,7 +33,7 @@ namespace BankTests
             BankAccount account = new BankAccount("Real Name", beginningBalance);
 
             // Act and assert
-            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => account.Debit(debitAmount));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => account.Debit(debitAmount));
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace BankTests
             {
                 account.Debit(debitAmount);
             }
-            catch (System.ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException e)
             {
                 // Assert
                 StringAssert.Contains(e.Message, BankAccount.DebitAmountExceedsBalanceMessage);
