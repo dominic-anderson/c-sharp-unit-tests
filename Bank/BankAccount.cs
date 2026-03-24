@@ -41,7 +41,7 @@
                 throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
             }
 
-            m_balance -= amount; // This is intentionally incorrect code for unit testing purposes
+            m_balance -= amount;
         }
 
         public void Credit(double amount)
@@ -52,6 +52,33 @@
             }
 
             m_balance += amount;
+        }
+
+        public void Display()
+        {
+            Console.WriteLine($"Customer: {m_customerName}\nBalance: {m_balance:C2}");
+        }
+
+        public static void Transfer(BankAccount origin, BankAccount destination, double amount, string? note)
+        {
+            if (origin == null)
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+            if (destination == null)
+            {
+                throw new ArgumentNullException(nameof(destination));
+            }
+
+            try
+            {
+                origin.Debit(amount);
+                destination.Credit(amount);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                throw new InvalidOperationException("Transfer failed. See inner exception for details.", ex);
+            }
         }
 
         public static void Main()
