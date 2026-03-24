@@ -7,6 +7,7 @@ namespace BankTests
     public sealed class BankAccountTests
     {
         [TestMethod]
+        [TestCategory("Logic")]
         public void Debit_WithValidAmount_UpdatesBalance()
         {
             // Arrange
@@ -24,6 +25,7 @@ namespace BankTests
         }
 
         [TestMethod]
+        [TestCategory("Data Validation")]
         public void Debit_WhenAmountIsLessThanZero_ShouldThrowArgumentOutOfRange()
         {
             // Arrange
@@ -36,6 +38,7 @@ namespace BankTests
         }
 
         [TestMethod]
+        [TestCategory("Logic")]
         public void Debit_WhenAmountExceedsBalance_ShouldThrowArgumentOutOfRange()
         {
             // Arrange
@@ -56,6 +59,20 @@ namespace BankTests
             }
 
             Assert.Fail("The expected exception was not thrown.");
+        }
+
+        [TestMethod]
+        [TestCategory("Data Validation")]
+        public void CheckIfAccountHasName()
+        {
+            // Arrange
+            double beginningBalance = 11.99;
+            BankAccount account1 = new BankAccount("Has A. Name", beginningBalance);
+            BankAccount account2 = new BankAccount("", beginningBalance);
+
+            // Act and assert
+            Assert.IsFalse(string.IsNullOrEmpty(account1.CustomerName) && string.IsNullOrWhiteSpace(account1.CustomerName));
+            Assert.IsTrue(string.IsNullOrEmpty(account2.CustomerName) || string.IsNullOrWhiteSpace(account2.CustomerName));
         }
     }
 }
