@@ -1,0 +1,31 @@
+name: PVS-Studio Static Analysis
+
+on: workflow_dispatch
+
+jobs:
+  build-analyze:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Check Out Repository Code
+        uses: actions/checkout@v6.0.2
+      
+      - name: Install .NET
+        uses: actions/setup-dotnet@v5.2.0
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install PVS-Studio
+        shell: powershell
+        run: |
+          choco install pvs-studio -y
+
+      - name: Activate PVS-Studio License
+        shell: powershell
+        run: |
+          & "C:\Program Files (x86)\PVS-Studio\PVS-Studio_Cmd.exe" credentials ${{ secrets.PVS_NAME }} ${{ secrets.PVS_KEY }}
+
+      - name: Analyze Solution
+        shell: powershell
+        run: |
+          & "C:\Program Files (x86)\PVS-Studio_Cmd.exe" -t .\Bank.sln -r .\pvs-report.json -o .\pvs-report.plog
