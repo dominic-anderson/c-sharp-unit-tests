@@ -31,4 +31,4 @@ jobs:
       - name: Analyze Solution
         shell: pwsh
         run: |
-          & "C:\Program Files (x86)\PVS-Studio_Cmd.exe" -t .\Bank.sln -r .\pvs-report.json -o .\pvs-report.plog
+          & "C:\Program Files (x86)\PVS-Studio\PVS-Studio_Cmd.exe" -t .\Bank.sln -r .\pvs-report.json -o .\pvs-report.plog
