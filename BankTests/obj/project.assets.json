@@ -934,11 +934,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\BankTests\\BankTests.csproj",
+      "projectUniqueName": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\BankTests\\BankTests.csproj",
       "projectName": "BankTests",
-      "projectPath": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\BankTests\\BankTests.csproj",
+      "projectPath": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\BankTests\\BankTests.csproj",
       "packagesPath": "C:\\Users\\and\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\BankTests\\obj\\",
+      "outputPath": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\BankTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\and\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -954,8 +954,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\Bank\\Bank.csproj": {
-              "projectPath": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\Bank\\Bank.csproj"
+            "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\Bank\\Bank.csproj": {
+              "projectPath": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\Bank\\Bank.csproj"
             }
           }
         }

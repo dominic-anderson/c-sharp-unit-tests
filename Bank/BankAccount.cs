@@ -83,11 +83,19 @@
 
         public static void Main()
         {
-            BankAccount ba = new BankAccount("John Doe", 11.99);
+            Random rng = new Random();
+            List<BankAccount> Bank = new List<BankAccount>();
+            
+            for (int i = 0; i < 10; i++)
+            {
+                Bank.Add(new BankAccount($"Account #{i + 1}", 100 + i * 10 + rng.Next(100)));
+            }
 
-            ba.Credit(5.77);
-            ba.Debit(11.22);
-            Console.WriteLine("Current balance is ${0}", ba.Balance);
+            foreach (BankAccount ba in Bank)
+            {
+                ba.Display();
+                Console.WriteLine();
+            }
         }
     }
 }

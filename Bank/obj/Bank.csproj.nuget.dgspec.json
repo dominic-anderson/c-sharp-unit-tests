@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\Bank\\Bank.csproj": {}
+    "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\Bank\\Bank.csproj": {}
   },
   "projects": {
-    "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\Bank\\Bank.csproj": {
+    "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\Bank\\Bank.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\Bank\\Bank.csproj",
+        "projectUniqueName": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\Bank\\Bank.csproj",
         "projectName": "Bank",
-        "projectPath": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\Bank\\Bank.csproj",
+        "projectPath": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\Bank\\Bank.csproj",
         "packagesPath": "C:\\Users\\and\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\Bank\\obj\\",
+        "outputPath": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\Bank\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\and\\AppData\\Roaming\\NuGet\\NuGet.Config",

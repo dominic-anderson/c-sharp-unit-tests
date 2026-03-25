@@ -38,7 +38,7 @@ namespace BankTests
 
         [TestMethod]
         [TestCategory("Logic")]
-        public void Debit_WhenAmountExceedsBalance_ShouldThrowArgumentOutOfRange()
+        public void Debit_WhenAmountExceedsBalance_ShouldAllowDebit()
         {
             // Arrange
             double beginningBalance = 11.99;
@@ -59,7 +59,7 @@ namespace BankTests
 
             Assert.Fail("The expected exception was not thrown.");
         }
-        
+
         [TestMethod]
         [TestCategory("Data Validation")]
         [TestCategory("Miscellaneous")]
@@ -139,6 +139,22 @@ namespace BankTests
                 string expected5 = $"Customer: {account5.CustomerName}\nBalance: {account5.Balance:C2}";
                 Assert.AreEqual(expected5, sw.ToString().Trim());
             }
+        }
+
+        [TestMethod]
+        [TestCategory("Logic")]
+        public void Debit_WhenAmountIsExactlyBalance_ShouldSetBalanceToZero()
+        {
+            // Arrange
+            double beginningBalance = 50.00;
+            double debitAmount = 50.00;
+            BankAccount account = new BankAccount("Exact Balance Account", beginningBalance);
+            double expected = 0.00;
+            // Act
+            account.Debit(debitAmount);
+            // Assert
+            double actual = account.Balance;
+            Assert.AreEqual(expected, actual, 0.001, "Account balance should be zero after debiting the exact amount");
         }
     }
 }

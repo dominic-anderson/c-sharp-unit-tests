@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BYzbgKUuh5k=",
+  "dgSpecHash": "Zm5fuCOTgDA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\and\\source\\repos\\c-sharp-testing-repo\\BankTests\\BankTests.csproj",
+  "projectFilePath": "C:\\Users\\and\\Source\\Repos\\c-sharp-unit-tests\\BankTests\\BankTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\and\\.nuget\\packages\\microsoft.codecoverage\\17.10.0-preview-24080-01\\microsoft.codecoverage.17.10.0-preview-24080-01.nupkg.sha512",
     "C:\\Users\\and\\.nuget\\packages\\microsoft.net.test.sdk\\17.10.0-preview-24080-01\\microsoft.net.test.sdk.17.10.0-preview-24080-01.nupkg.sha512",
