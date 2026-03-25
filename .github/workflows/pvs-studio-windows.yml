@@ -16,16 +16,19 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Install PVS-Studio
-        shell: powershell
+        shell: pwsh
         run: |
           choco install pvs-studio -y
 
       - name: Activate PVS-Studio License
-        shell: powershell
+        env:
+          USERNAME: ${{ secrets.PVS_NAME }}
+          KEY: ${{ secrets.PVS_KEY }}
+        shell: pwsh
         run: |
-          & "C:\Program Files (x86)\PVS-Studio\PVS-Studio_Cmd.exe" credentials ${{ secrets.PVS_NAME }} ${{ secrets.PVS_KEY }}
+          & "C:\Program Files (x86)\PVS-Studio\PVS-Studio_Cmd.exe" credentials --userName "$env:USERNAME" --licenseKey "$env:KEY"
 
       - name: Analyze Solution
-        shell: powershell
+        shell: pwsh
         run: |
-          & "C:\Program Files (x86)\PVS-Studio_Cmd.exe" -t .\Bank.sln -r .\pvs-report.json -o .\pvs-report.plog
+          & "C:\Program Files (x86)\PVS-Studio\PVS-Studio_Cmd.exe" -t .\Bank.sln -r .\pvs-report.json -o .\pvs-report.plog
