@@ -74,6 +74,7 @@
             {
                 origin.Withdraw(amount);
                 destination.Deposit(amount);
+                Console.WriteLine($"Transferred {amount:C2} from {origin.CustomerName} to {destination.CustomerName}. Note: {note}");
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -89,6 +90,23 @@
             for (int i = 0; i < 10; i++)
             {
                 Bank.Add(new BankAccount($"Account #{i + 1}", 100 + i * 10 + rng.Next(100)));
+            }
+
+            foreach (BankAccount ba in Bank)
+            {
+                ba.Display();
+                Console.WriteLine();
+            }
+
+            for (int i = 0; i < Bank.Count; i++)
+            {
+                if (i == 0)
+                {
+                    Bank[i].Withdraw(rng.Next(150));
+                } else
+                {
+                    Transfer(Bank[i], Bank[i - 1], rng.Next(150), "Transfer successful!\n");
+                }
             }
 
             foreach (BankAccount ba in Bank)
