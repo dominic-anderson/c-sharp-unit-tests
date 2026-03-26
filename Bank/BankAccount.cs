@@ -29,7 +29,7 @@
             get { return m_balance; }
         }
 
-        public void Debit(double amount)
+        public void Withdraw(double amount)
         {
             if (amount > m_balance)
             {
@@ -44,7 +44,7 @@
             m_balance = Math.Round(m_balance - amount, 2);
         }
 
-        public void Credit(double amount)
+        public void Deposit(double amount)
         {
             if (amount < 0)
             {
@@ -72,8 +72,8 @@
 
             try
             {
-                origin.Debit(amount);
-                destination.Credit(amount);
+                origin.Withdraw(amount);
+                destination.Deposit(amount);
             }
             catch (ArgumentOutOfRangeException ex)
             {

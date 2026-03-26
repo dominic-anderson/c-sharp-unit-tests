@@ -7,7 +7,7 @@ namespace BankTests
     {
         [TestMethod]
         [TestCategory("Logic")]
-        public void Debit_WithValidAmount_UpdatesBalance()
+        public void Withdraw_WithValidAmount_UpdatesBalance()
         {
             // Arrange
             double beginningBalance = 11.99;
@@ -16,7 +16,7 @@ namespace BankTests
             BankAccount account = new BankAccount("Hugh Mann", beginningBalance);
 
             // Act
-            account.Debit(debitAmount);
+            account.Withdraw(debitAmount);
 
             // Assert
             double actual = account.Balance;
@@ -25,7 +25,7 @@ namespace BankTests
 
         [TestMethod]
         [TestCategory("Data Validation")]
-        public void Debit_WhenAmountIsLessThanZero_ShouldThrowArgumentOutOfRange()
+        public void Withdraw_WhenAmountIsLessThanZero_ShouldThrowArgumentOutOfRange()
         {
             // Arrange
             double beginningBalance = 11.99;
@@ -33,12 +33,12 @@ namespace BankTests
             BankAccount account = new BankAccount("Real Name", beginningBalance);
 
             // Act and assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => account.Debit(debitAmount));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => account.Withdraw(debitAmount));
         }
 
         [TestMethod]
         [TestCategory("Logic")]
-        public void Debit_WhenAmountExceedsBalance_ShouldAllowDebit()
+        public void Withdraw_WhenAmountExceedsBalance_ShouldAllowDebit()
         {
             // Arrange
             double beginningBalance = 11.99;
@@ -48,7 +48,7 @@ namespace BankTests
             // Act
             try
             {
-                account.Debit(debitAmount);
+                account.Withdraw(debitAmount);
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -143,7 +143,7 @@ namespace BankTests
 
         [TestMethod]
         [TestCategory("Logic")]
-        public void Debit_WhenAmountIsExactlyBalance_ShouldSetBalanceToZero()
+        public void Withdraw_WhenAmountIsExactlyBalance_ShouldSetBalanceToZero()
         {
             // Arrange
             double beginningBalance = 50.00;
@@ -151,7 +151,7 @@ namespace BankTests
             BankAccount account = new BankAccount("Exact Balance Account", beginningBalance);
             double expected = 0.00;
             // Act
-            account.Debit(debitAmount);
+            account.Withdraw(debitAmount);
             // Assert
             double actual = account.Balance;
             Assert.AreEqual(expected, actual, 0.001, "Account balance should be zero after debiting the exact amount");
