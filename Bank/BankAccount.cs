@@ -86,10 +86,16 @@
         {
             Random rng = new Random();
             List<BankAccount> Bank = new List<BankAccount>();
+            double maxBalance = 0;
+            double maxTransferBalance = 0;
+            double minBalance = 9223372036854775807;
+            double minTransferBalance = 9223372036854775807;
+            double nextBalance = 0;
             
             for (int i = 0; i < 1000000; i++)
             {
-                Bank.Add(new BankAccount($"Account #{i + 1}", 100 + i * 10 + rng.Next(100)));
+                nextBalance = 100 + rng.NextInt64(i + 1) * rng.NextInt64(i + 1) + ((double)rng.Next(100) / 100);
+                Bank.Add(new BankAccount($"Account #{i + 1}", nextBalance));
             }
 
             foreach (BankAccount ba in Bank)
@@ -98,10 +104,23 @@
                 Console.WriteLine();
             }
 
+            foreach (BankAccount ba in Bank)
+            {
+                if (ba.Balance > maxBalance)
+                {
+                    maxBalance = ba.Balance;
+                }
+
+                if (ba.Balance < minBalance)
+                {
+                    minBalance = ba.Balance;
+                }
+            }
+
             for (int i = 0; i < Bank.Count; i++)
             {
                 BankAccount destination = Bank[rng.Next(Bank.Count - 1)];
-                Transfer(Bank[i], destination, (double)rng.Next((int)Bank[i].Balance - 1) + ((double)rng.Next(100) / 100), "Transfer successful!\n");
+                Transfer(Bank[i], destination, (double)rng.NextInt64((long)Bank[i].Balance - 1) + ((double)rng.Next(100) / 100), "Transfer successful!\n");
                 Bank[i].Display();
                 destination.Display();
                 Console.WriteLine();
@@ -109,9 +128,27 @@
 
             foreach (BankAccount ba in Bank)
             {
-                ba.Display();
-                Console.WriteLine();
+                if (ba.Balance > maxTransferBalance)
+                {
+                    maxTransferBalance = ba.Balance;
+                }
+
+                if (ba.Balance < minTransferBalance)
+                {
+                    minTransferBalance = ba.Balance;
+                }
             }
+
+            Console.WriteLine($"Max Balance: {maxBalance:C2}");
+            Console.WriteLine($"Min Balance: {minBalance:C2}");
+            Console.WriteLine($"Max Transfer Balance: {maxTransferBalance:C2}");
+            Console.WriteLine($"Min Transfer Balance: {minTransferBalance:C2}");
+
+            //foreach (BankAccount ba in Bank)
+            //{
+            //    ba.Display();
+            //    Console.WriteLine();
+            //}
         }
     }
 }
