@@ -107,11 +107,11 @@
                 Console.WriteLine();
             }
 
-            //foreach (BankAccount ba in Bank)
-            //{
-            //    ba.Display();
-            //    Console.WriteLine();
-            //}
+            foreach (BankAccount ba in Bank)
+            {
+                ba.Display();
+                Console.WriteLine();
+            }
         }
     }
 }
