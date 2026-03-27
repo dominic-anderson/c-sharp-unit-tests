@@ -87,7 +87,7 @@
             Random rng = new Random();
             List<BankAccount> Bank = new List<BankAccount>();
             
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1000000; i++)
             {
                 Bank.Add(new BankAccount($"Account #{i + 1}", 100 + i * 10 + rng.Next(100)));
             }
@@ -100,20 +100,18 @@
 
             for (int i = 0; i < Bank.Count; i++)
             {
-                if (i == 0)
-                {
-                    Bank[i].Withdraw(rng.Next(150));
-                } else
-                {
-                    Transfer(Bank[i], Bank[i - 1], rng.Next(150), "Transfer successful!\n");
-                }
-            }
-
-            foreach (BankAccount ba in Bank)
-            {
-                ba.Display();
+                BankAccount destination = Bank[rng.Next(Bank.Count - 1)];
+                Transfer(Bank[i], destination, (double)rng.Next((int)Bank[i].Balance - 1) + ((double)rng.Next(100) / 100), "Transfer successful!\n");
+                Bank[i].Display();
+                destination.Display();
                 Console.WriteLine();
             }
+
+            //foreach (BankAccount ba in Bank)
+            //{
+            //    ba.Display();
+            //    Console.WriteLine();
+            //}
         }
     }
 }
