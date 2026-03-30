@@ -62,11 +62,11 @@ jobs:
       
       - name: Convert Report to Readable Format
         run: |
-          plog-converter -t html BankLog.json
+          plog-converter -t json BankLog.json
 
       - name: Artifact PVS Report
         uses: actions/upload-artifact@v5.0.0
         if: always()
         with:
           name: pvs-report
-          path: pvs-report.html
+          path: pvs-report.json
