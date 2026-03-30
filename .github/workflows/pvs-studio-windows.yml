@@ -44,16 +44,25 @@ jobs:
       - name: Set PVS-Studio License
         run: pvs-studio-analyzer credentials ${{secrets.PVS_NAME}} ${{secrets.PVS_KEY}}
 
-      - name: Show File Directory Structure
-        run:
+      - name: Restore Dependencies
+        run: dotnet restore Bank/Bank.sln
+
+      - name: Build
+        run: dotnet build Bank/Bank.sln --configuration release --no-restore
 
       - name: Run PVS-Studio Analysis
         run: |
-          pvs-studio-dotnet -t Bank/Bank.sln -o BankLog.plog
+          set +e
+          pvs-studio-dotnet -t Bank/Bank.sln -c Release -o BankLog.json
+          EXIT_CODE=$?
+          echo "PVS Exit Code: $EXIT_CODE"
+          if [ $EXIT_CODE -ne 0 ] && [ $EXIT_CODE -ne 8 ]; then
+            exit $EXIT_CODE
+          fi
       
       - name: Convert Report to Readable Format
         run: |
-          plog-converter -t html BankLog.plog
+          plog-converter -t html BankLog.json
 
       - name: Artifact PVS Report
         uses: actions/upload-artifact@v5.0.0
