@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Out Repo
+      - name: Checkout Repo
         uses: actions/checkout@v6.0.2
 
       - name: Set Up .NET
@@ -28,6 +28,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6.0.2
+
+      - name: List File Directory Structure
+        run: ls -R
+    
       - name: Install PVS-Studio
         run: |
           wget -q -O - https://wcdn.pvs-studio.com/etc/pubkey.txt | sudo apt-key add -
@@ -37,6 +43,9 @@ jobs:
 
       - name: Set PVS-Studio License
         run: pvs-studio-analyzer credentials ${{secrets.PVS_NAME}} ${{secrets.PVS_KEY}}
+
+      - name: Show File Directory Structure
+        run:
 
       - name: Run PVS-Studio Analysis
         run: |
