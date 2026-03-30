@@ -16,13 +16,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore Bank/Bank.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build Bank/Bank.sln --configuration Release --no-restore
 
       - name: Run Unit Tests
-        run: dotnet test --configuration Release --no-build --verbosity normal
+        run: dotnet test Bank.Bank.sln --configuration Release --no-build --verbosity normal
 
   static-analysis:
     runs-on: ubuntu-latest
@@ -30,9 +30,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v6.0.2
-
-      - name: List File Directory Structure
-        run: ls -R
     
       - name: Install PVS-Studio
         run: |
