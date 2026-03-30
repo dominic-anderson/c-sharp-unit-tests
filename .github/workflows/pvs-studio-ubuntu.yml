@@ -22,7 +22,7 @@ jobs:
         run: dotnet build Bank/Bank.sln --configuration Release --no-restore
 
       - name: Run Unit Tests
-        run: dotnet test Bank.Bank.sln --configuration Release --no-build --verbosity normal
+        run: dotnet test Bank/Bank.sln --configuration Release --no-build --verbosity normal
 
   static-analysis:
     runs-on: ubuntu-latest
