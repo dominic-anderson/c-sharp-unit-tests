@@ -3,32 +3,59 @@ name: PVS-Studio Static Analysis
 on: workflow_dispatch
 
 jobs:
-  build-analyze:
-    runs-on: windows-latest
-    
+  unit-testing:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Check Out Repository Code
+      - name: Check Out Repo
         uses: actions/checkout@v6.0.2
-      
-      - name: Install .NET
+
+      - name: Set Up .NET
         uses: actions/setup-dotnet@v5.2.0
         with:
           dotnet-version: '8.0.x'
 
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run Unit Tests
+        run: dotnet test --configuration Release --no-build --verbosity normal
+
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Install PVS-Studio
-        shell: pwsh
         run: |
-          choco install pvs-studio -y
+          wget -q -O - https://files.viva64.com/etc/pubkey.txt | sudo apt-key add -
+          sudo wget -O /etc/atp/sources.list.d/viva64.list https://files.viva64.com/etc/viva64.list
+          sudo apt-get update
+          sudo apt-get install pvs-studo -y
 
-      - name: Activate PVS-Studio License
-        env:
-          USERNAME: ${{ secrets.PVS_NAME }}
-          KEY: ${{ secrets.PVS_KEY }}
-        shell: pwsh
-        run: |
-          & "C:\Program Files (x86)\PVS-Studio\PVS-Studio_Cmd.exe" credentials --userName "$env:USERNAME" --licenseKey "$env:KEY"
+      - name: Set PVS-Studio License
+        run: pvs-studio-analyzer credentials ${{secrets.PVS_NAME}} ${{secrets.PVS_KEY}}
 
-      - name: Analyze Solution
-        shell: pwsh
+      - name: Run PVS-Studio Analysis
         run: |
-          & "C:\Program Files (x86)\PVS-Studio\PVS-Studio_Cmd.exe" -t .\Bank.sln -r .\pvs-report.json -o .\pvs-report.plog
+          pvs-studio-dotnet analyze \
+            --solution Bank/Bank.sln \
+            --output pvs-report.json \
+            --format json
+      
+      - name: Convert Report to Readable Format
+        run: |
+          plog-converter \
+            -a GA:1,2 \
+            -t fullhtml \
+            -o pvs-report.html \
+            pvs-report.json
+
+      - name: Artifact PVS Report
+        uses: actions/upload-artifact@v5.0.0
+        if: always()
+        with:
+          name: pvs-report
+          path: pvs-report.html
