@@ -118,26 +118,20 @@ namespace BankTests
             // Act and assert
             using (var sw = new StringWriter())
             {
-                Console.SetOut(sw);
-                account1.Display();
                 string expected1 = $"Customer: {account1.CustomerName}\nBalance: {account1.Balance:C2}";
-                Assert.AreEqual(expected1, sw.ToString().Trim());
+                Assert.AreEqual(expected1, account1.Display());
                 sw.GetStringBuilder().Clear();
-                account2.Display();
                 string expected2 = $"Customer: {account2.CustomerName}\nBalance: {account2.Balance:C2}";
-                Assert.AreEqual(expected2, sw.ToString().Trim());
+                Assert.AreEqual(expected2, account2.Display());
                 sw.GetStringBuilder().Clear();
-                account3.Display();
                 string expected3 = $"Customer: {account3.CustomerName}\nBalance: {account3.Balance:C2}";
-                Assert.AreEqual(expected3, sw.ToString().Trim());
+                Assert.AreEqual(expected3, account3.Display());
                 sw.GetStringBuilder().Clear();
-                account4.Display();
                 string expected4 = $"Customer: {account4.CustomerName}\nBalance: {account4.Balance:C2}";
-                Assert.AreEqual(expected4, sw.ToString().Trim());
+                Assert.AreEqual(expected4, account4.Display());
                 sw.GetStringBuilder().Clear();
-                account5.Display();
                 string expected5 = $"Customer: {account5.CustomerName}\nBalance: {account5.Balance:C2}";
-                Assert.AreEqual(expected5, sw.ToString().Trim());
+                Assert.AreEqual(expected5, account5.Display());
             }
         }
 

@@ -54,9 +54,9 @@
             m_balance = Math.Round(m_balance + amount, 2);
         }
 
-        public void Display()
+        public string Display()
         {
-            Console.WriteLine($"Customer: {m_customerName}\nBalance: {m_balance:C2}");
+            return $"Customer: {m_customerName}\nBalance: {m_balance:C2}";
         }
 
         public static void Transfer(BankAccount origin, BankAccount destination, double amount, string? note)
@@ -121,8 +121,8 @@
             {
                 BankAccount destination = Bank[rng.Next(Bank.Count - 1)];
                 Transfer(Bank[i], destination, (double)rng.NextInt64((long)Bank[i].Balance - 1) + ((double)rng.Next(100) / 100), "Transfer successful!\n");
-                Bank[i].Display();
-                destination.Display();
+                Console.WriteLine(Bank[i].Display());
+                Console.WriteLine(destination.Display());
                 Console.WriteLine();
             }
 
