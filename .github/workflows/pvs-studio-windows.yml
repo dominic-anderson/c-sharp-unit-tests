@@ -40,15 +40,11 @@ jobs:
 
       - name: Run PVS-Studio Analysis
         run: |
-          pvs-studio-dotnet analyze -t "Bank/Bank.sln" -o "BankLog.plog"
+          pvs-studio-dotnet -t Bank/Bank.sln -o BankLog.plog
       
       - name: Convert Report to Readable Format
         run: |
-          plog-converter \
-            -a GA:1,2 \
-            -t fullhtml \
-            -o pvs-report.html \
-            pvs-report.json
+          plog-converter -t html BankLog.plog
 
       - name: Artifact PVS Report
         uses: actions/upload-artifact@v5.0.0
