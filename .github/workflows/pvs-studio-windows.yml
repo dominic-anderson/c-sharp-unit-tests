@@ -30,20 +30,17 @@ jobs:
     steps:
       - name: Install PVS-Studio
         run: |
-          wget -q -O - https://files.viva64.com/etc/pubkey.txt | sudo apt-key add -
-          sudo wget -O /etc/atp/sources.list.d/viva64.list https://files.viva64.com/etc/viva64.list
+          wget -q -O - https://wcdn.pvs-studio.com/etc/pubkey.txt | sudo apt-key add -
+          sudo wget -O /etc/apt/sources.list.d/viva64.list https://wcdn.pvs-studio.com/etc/viva64.list
           sudo apt-get update
-          sudo apt-get install pvs-studo -y
+          sudo apt-get install pvs-studio-dotnet
 
       - name: Set PVS-Studio License
         run: pvs-studio-analyzer credentials ${{secrets.PVS_NAME}} ${{secrets.PVS_KEY}}
 
       - name: Run PVS-Studio Analysis
         run: |
-          pvs-studio-dotnet analyze \
-            --solution Bank/Bank.sln \
-            --output pvs-report.json \
-            --format json
+          pvs-studio-dotnet analyze -t "Bank/Bank.sln" -o "BankLog.plog"
       
       - name: Convert Report to Readable Format
         run: |
