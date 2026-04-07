@@ -8,7 +8,7 @@
     {
         public const string DebitAmountExceedsBalanceMessage = "Debit amount exceeds balance";
         public const string DebitAmountLessThanZeroMessage = "Debit amount is less than zero";
-        private readonly string m_customerName;
+        private string m_customerName;
         private double m_balance;
 
         private BankAccount() { }
@@ -86,13 +86,13 @@
         {
             Random rng = new Random();
             List<BankAccount> Bank = new List<BankAccount>();
-            double maxBalance = 0;
-            double maxTransferBalance = 0;
-            double minBalance = 9223372036854775807;
-            double minTransferBalance = 9223372036854775807;
+            BankAccount maxBalance = new BankAccount("", 0);
+            BankAccount maxTransferBalance = new BankAccount("", 0);
+            BankAccount minBalance = new BankAccount("", 9223372036854775807);
+            BankAccount minTransferBalance = new BankAccount("", 9223372036854775807);
             double nextBalance = 0;
             
-            for (int i = 0; i < 1000000; i++)
+            for (long i = 0; i < 1000000; i++)
             {
                 nextBalance = 100 + rng.NextInt64(i + 1) * rng.NextInt64(i + 1) + ((double)rng.Next(100) / 100);
                 Bank.Add(new BankAccount($"Account #{i + 1}", nextBalance));
@@ -100,20 +100,22 @@
 
             foreach (BankAccount ba in Bank)
             {
-                ba.Display();
+                Console.WriteLine(ba.Display());
                 Console.WriteLine();
             }
 
             foreach (BankAccount ba in Bank)
             {
-                if (ba.Balance > maxBalance)
+                if (ba.Balance > maxBalance.Balance)
                 {
-                    maxBalance = ba.Balance;
+                    maxBalance.m_balance = ba.Balance;
+                    maxBalance.m_customerName = ba.CustomerName;
                 }
 
-                if (ba.Balance < minBalance)
+                if (ba.Balance < minBalance.Balance)
                 {
-                    minBalance = ba.Balance;
+                    minBalance.m_balance = ba.Balance;
+                    minBalance.m_customerName = ba.CustomerName;
                 }
             }
 
@@ -128,21 +130,23 @@
 
             foreach (BankAccount ba in Bank)
             {
-                if (ba.Balance > maxTransferBalance)
+                if (ba.Balance > maxTransferBalance.Balance)
                 {
-                    maxTransferBalance = ba.Balance;
+                    maxTransferBalance.m_balance = ba.Balance;
+                    maxTransferBalance.m_customerName = ba.CustomerName;
                 }
 
-                if (ba.Balance < minTransferBalance)
+                if (ba.Balance < minTransferBalance.Balance)
                 {
-                    minTransferBalance = ba.Balance;
+                    minTransferBalance.m_balance = ba.Balance;
+                    minTransferBalance.m_customerName = ba.CustomerName;
                 }
             }
 
-            Console.WriteLine($"Max Balance: {maxBalance:C2}");
-            Console.WriteLine($"Min Balance: {minBalance:C2}");
-            Console.WriteLine($"Max Transfer Balance: {maxTransferBalance:C2}");
-            Console.WriteLine($"Min Transfer Balance: {minTransferBalance:C2}");
+            Console.WriteLine($"Max Balance: {maxBalance.Balance:C2}\nAccount: {maxBalance.CustomerName}");
+            Console.WriteLine($"Min Balance: {minBalance.Balance:C2}\nAccount: {minBalance.CustomerName}");
+            Console.WriteLine($"Max Transfer Balance: {maxTransferBalance.Balance:C2}\nAccount: {maxTransferBalance.CustomerName}");
+            Console.WriteLine($"Min Transfer Balance: {minTransferBalance.Balance:C2}\nAccount: {minTransferBalance.CustomerName}");
 
             //foreach (BankAccount ba in Bank)
             //{
