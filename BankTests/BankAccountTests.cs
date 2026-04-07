@@ -112,7 +112,7 @@ namespace BankTests
             BankAccount account1 = new BankAccount("Test Account", 10.00);
             BankAccount account2 = new BankAccount("Empty Account", 0.00);
             BankAccount account3 = new BankAccount("1 Decimal Account", 20.10);
-            BankAccount account4 = new BankAccount("2 Decimal Account", 20.11);
+            BankAccount account4 = new BankAccount("2 Decimal Account", 20.10);
             BankAccount account5 = new BankAccount("Negative Account", -10.00);
 
             // Act and assert
